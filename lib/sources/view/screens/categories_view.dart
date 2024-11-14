@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app_c12/common/app_assets.dart';
-import 'package:news_app_c12/screens/category/category_card.dart';
-import 'package:news_app_c12/screens/category/models/category_model.dart';
+import 'package:news_app_c12/sources/view/widgets/category_card.dart';
+import 'package:news_app_c12/sources/data/data_models/category_model.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({super.key, required this.onSelect});

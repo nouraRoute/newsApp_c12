@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_c12/common/app_assets.dart';
 import 'package:news_app_c12/common/widgets/custom_drawer.dart';
-import 'package:news_app_c12/screens/category/categories_view.dart';
-import 'package:news_app_c12/screens/category/category_details_view.dart';
-import 'package:news_app_c12/screens/category/models/category_model.dart';
-import 'package:news_app_c12/screens/settings/settings_view.dart';
+import 'package:news_app_c12/sources/view/screens/categories_view.dart';
+import 'package:news_app_c12/sources/view/screens/category_details_view.dart';
+import 'package:news_app_c12/sources/data/data_models/category_model.dart';
+import 'package:news_app_c12/settings/settings_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

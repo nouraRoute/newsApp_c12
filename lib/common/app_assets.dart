@@ -5,5 +5,6 @@ class AppAssets {
   static String politicsImage = 'assets/Politics.png';
   static String scienceImage = 'assets/science.png';
   static String environmentImage = 'assets/environment.png';
+  static String failedImage = 'assets/download.png';
   static String bussinesImage = 'assets/bussines.png';
 }
