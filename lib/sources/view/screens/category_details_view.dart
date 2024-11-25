@@ -34,7 +34,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                   ? LoadingWidget()
                   : value.errorMessage != null
                       ? CustomErrorWidget(errorMessage: value.errorMessage!)
-                      : SourcesList(sources: value.sourceModel?.sources ?? []),
+                      : SourcesList(sources: value.sourcesList ?? []),
             ))
       ],
     );

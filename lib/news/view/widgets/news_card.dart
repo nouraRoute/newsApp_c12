@@ -4,6 +4,7 @@ import 'package:news_app_c12/common/app_assets.dart';
 import 'package:news_app_c12/common/app_colors.dart';
 import 'package:news_app_c12/news/data/data_models/news_model/article.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:cached_network_image/cached_network_image.dart';
 
 class NewsCard extends StatelessWidget {
   const NewsCard({super.key, required this.newsModel});
@@ -15,14 +16,17 @@ class NewsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            errorBuilder: (context, error, stackTrace) => Image.asset(
+          CachedNetworkImage(
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, error, stackTrace) => Image.asset(
               AppAssets.failedImage,
               height: 230.h,
               width: double.infinity,
               fit: BoxFit.contain,
             ),
-            newsModel.urlToImage ?? "",
+            imageUrl: newsModel.urlToImage ?? "",
             height: 230.h,
             width: double.infinity,
             fit: BoxFit.contain,

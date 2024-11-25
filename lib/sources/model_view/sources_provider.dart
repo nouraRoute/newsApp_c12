@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_c12/sources/data/data_source/data_source.dart';
+import 'package:news_app_c12/common/service_locator.dart';
 import 'package:news_app_c12/sources/data/data_models/sources_model.dart';
+import 'package:news_app_c12/sources/repository/sources_repository.dart';
 
 class SourcesProvider extends ChangeNotifier {
-  DataSource dataSource = DataSource();
-  SourceModel? sourceModel;
+  SourcesRepository sourcesRepository;
+  SourcesProvider()
+      : sourcesRepository = SourcesRepository(ServiceLocator.sourcesDataSource);
+  List<Sources>? sourcesList;
   String? errorMessage;
   bool waiting = false;
   Future getSources(String catID) async {
     waiting = true;
     notifyListeners();
     try {
-      SourceModel responce = await dataSource.getSources(catID);
-      sourceModel = responce;
-      if (responce.status != 'ok') {
-        errorMessage = responce.status;
-      }
+      List<Sources> responce = await sourcesRepository.getSources(catID);
+      sourcesList = responce;
     } catch (e) {
       errorMessage = e.toString();
     }

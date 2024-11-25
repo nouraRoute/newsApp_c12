@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_c12/common/widgets/error_widget.dart';
 import 'package:news_app_c12/common/widgets/loading_widget.dart';
-import 'package:news_app_c12/news/model_view/news_provider.dart';
+import 'package:news_app_c12/news/view_model/news_provider.dart';
 import 'package:news_app_c12/news/view/widgets/news_card.dart';
 import 'package:provider/provider.dart';
 
@@ -42,9 +42,9 @@ class _NewsListState extends State<NewsList> {
                 : ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: value.newsModel?.articles?.length,
+                    itemCount: value.newsList?.length,
                     itemBuilder: (context, index) => NewsCard(
-                      newsModel: value.newsModel!.articles![index],
+                      newsModel: value.newsList![index],
                     ),
                   ),
       ),
