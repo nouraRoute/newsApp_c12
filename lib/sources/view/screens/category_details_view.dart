@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_c12/common/widgets/error_widget.dart';
 import 'package:news_app_c12/common/widgets/loading_widget.dart';
-import 'package:news_app_c12/sources/model_view/sources_provider.dart';
+import 'package:news_app_c12/sources/model_view/sources_cubit.dart';
+import 'package:news_app_c12/sources/model_view/sourses_state.dart';
 import 'package:news_app_c12/sources/view/widgets/sources_list.dart';
-import 'package:provider/provider.dart';
 
 class CategoryDetailsView extends StatefulWidget {
   const CategoryDetailsView({super.key, required this.id});
@@ -14,27 +15,33 @@ class CategoryDetailsView extends StatefulWidget {
 }
 
 class _CategoryDetailsViewState extends State<CategoryDetailsView> {
-  late SourcesProvider sourcesProvider;
+  late SourcesCubit sourcesCubit;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    sourcesProvider = SourcesProvider();
-    sourcesProvider.getSources(widget.id);
+    sourcesCubit = SourcesCubit();
+    sourcesCubit.getSources(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ChangeNotifierProvider(
-            create: (context) => sourcesProvider,
-            child: Consumer<SourcesProvider>(
-              builder: (_, value, child) => value.waiting
-                  ? LoadingWidget()
-                  : value.errorMessage != null
-                      ? CustomErrorWidget(errorMessage: value.errorMessage!)
-                      : SourcesList(sources: value.sourcesList ?? []),
+        BlocProvider(
+            create: (context) => sourcesCubit,
+            child: BlocBuilder<SourcesCubit, SourcesState>(
+              builder: (_, value) {
+                print('==>${value.runtimeType}');
+
+                return value is SourcesLoadingState
+                    ? const LoadingWidget()
+                    : value is SourcesErrorState
+                        ? CustomErrorWidget(errorMessage: value.errorMessage)
+                        : value is SourcesSuccessState
+                            ? SourcesList(sources: value.sourcesList)
+                            : const SizedBox.shrink();
+              },
             ))
       ],
     );
